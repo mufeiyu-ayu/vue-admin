@@ -1,6 +1,11 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="loginForm" :rules="loginRules">
+    <el-form
+      class="login-form"
+      ref="loginFromRef"
+      :model="loginForm"
+      :rules="loginRules"
+    >
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
@@ -23,22 +28,25 @@
           <svg-icon icon="password" />
         </span>
         <el-input
-          placeholder="passwrord"
+          placeholder="password"
           name="password"
           :type="passwordType"
           v-model="loginForm.password"
         />
         <span class="show-pwd">
           <svg-icon
-            @click="onChangePwd"
+            @click="onChangePwdType"
             :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
           />
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px"
-        >登录</el-button
-      >
+      <el-button
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        :loading="loading"
+        @click="handleLogin"
+        >登录</el-button>
     </el-form>
   </div>
 </template>
@@ -46,6 +54,7 @@
 <script setup>
 import { ref } from 'vue'
 import { validatePassword } from './rules'
+import { useStore } from 'vuex'
 // 数据源
 const loginForm = ref({
   username: 'super-admin',
@@ -69,9 +78,9 @@ const loginRules = ref({
   ],
 })
 
-// 处理密码框文本显示内容
+// 处理密码框文本显示状态
 const passwordType = ref('password')
-const onChangePwd = () => {
+const onChangePwdType = () => {
   if (passwordType.value === 'password') {
     passwordType.value = 'text'
   } else {
@@ -79,6 +88,26 @@ const onChangePwd = () => {
   }
 }
 
+// 登录动作处理
+const loading = ref(false)
+const loginFromRef = ref(null)
+const store = useStore()
+const handleLogin = () => {
+  console.log(loginFromRef.value) // null
+  loginFromRef.value.validate(valid => {
+    if (!valid) return
+    loading.value = true
+    store.dispatch('user/login', loginForm.value)
+      .then((res) => {
+        loading.value = false
+        // TODO: 登录后操作
+      })
+      .catch(err => {
+        console.log(err)
+        loading.value = false
+      })
+  })
+}
 </script>
 <style lang="scss" scoped>
 $bg: #2d3a4b;

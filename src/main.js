@@ -6,7 +6,7 @@ import installElementPlus from "./plugins/element"
 
 // 初始化样式表
 import './styles/index.scss'
-import installIcons from '@/icons'
+import installIcons from '../src/icons/index'
 const app = createApp(App)
 installIcons(app)
 installElementPlus(app)
