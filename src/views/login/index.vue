@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
@@ -9,35 +9,78 @@
         <span class="svg-container">
           <svg-icon icon="user" />
         </span>
-        <el-input placeholder="username" name="username" type="text" />
+        <el-input
+          placeholder="username"
+          name="username"
+          type="text"
+          v-model="loginForm.username"
+        />
       </el-form-item>
 
       <!-- password -->
       <el-form-item prop="password">
         <span class="svg-container">
-         <svg-icon icon="password" />
+          <svg-icon icon="password" />
         </span>
-        <el-input placeholder="passwrord" name="password" />
+        <el-input
+          placeholder="passwrord"
+          name="password"
+          :type="passwordType"
+          v-model="loginForm.password"
+        />
         <span class="show-pwd">
-         <svg-icon icon="eye" />
+          <svg-icon
+            @click="onChangePwd"
+            :icon="passwordType === 'password' ? 'eye' : 'eye-open'"
+          />
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px">登录</el-button>
+      <el-button type="primary" style="width: 100%; margin-bottom: 30px"
+        >登录</el-button
+      >
     </el-form>
   </div>
 </template>
 
 <script setup>
-// 导入组件之后无需注册可直接使用
-import { Avatar } from '@element-plus/icons'
-import { } from 'vue'
-const btn = () => {
-  
-  
+import { ref } from 'vue'
+import { validatePassword } from './rules'
+// 数据源
+const loginForm = ref({
+  username: 'super-admin',
+  password: '123456',
+})
+// 验证规则
+const loginRules = ref({
+  username: [
+    {
+      required: true,
+      trigger: 'blur',
+      message: '用户名为必填项',
+    },
+  ],
+  password: [
+    {
+      required: true,
+      trigger: 'blur',
+      validator: validatePassword(),
+    },
+  ],
+})
+
+// 处理密码框文本显示内容
+const passwordType = ref('password')
+const onChangePwd = () => {
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
 }
+
 </script>
- <style lang="scss" scoped>
+<style lang="scss" scoped>
 $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
@@ -81,7 +124,6 @@ $cursor: #fff;
       }
     }
   }
-
 
   .svg-container {
     padding: 6px 5px 6px 15px;
