@@ -46,7 +46,8 @@
         style="width: 100%; margin-bottom: 30px"
         :loading="loading"
         @click="handleLogin"
-        >登录</el-button>
+        >登录</el-button
+      >
     </el-form>
   </div>
 </template>
@@ -93,16 +94,16 @@ const loading = ref(false)
 const loginFromRef = ref(null)
 const store = useStore()
 const handleLogin = () => {
-  console.log(loginFromRef.value) // null
-  loginFromRef.value.validate(valid => {
+  loginFromRef.value.validate((valid) => {
     if (!valid) return
     loading.value = true
-    store.dispatch('user/login', loginForm.value)
+    store
+      .dispatch('user/login', loginForm.value)
       .then((res) => {
         loading.value = false
         // TODO: 登录后操作
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
         loading.value = false
       })
