@@ -1,6 +1,11 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="loginForm" :rules="loginRules">
+    <el-form
+      class="login-form"
+      :model="loginForm"
+      :rules="loginRules"
+      ref="loginFromRef"
+    >
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
@@ -36,7 +41,11 @@
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px"
+      <el-button
+        type="primary"
+        style="width: 100%; margin-bottom: 30px"
+        :loading="loading"
+        @click="handlerLogin"
         >登录</el-button
       >
     </el-form>
@@ -45,7 +54,7 @@
 
 <script setup>
 import { ref } from 'vue'
-
+import { useStore } from 'vuex'
 // 数据源
 const loginForm = ref({
   username: 'super-admin',
@@ -83,6 +92,26 @@ const changePwdType = () => {
     ? (passwordType.value = 'text')
     : (passwordType.value = 'password')
 }
+
+// 登录动作处理
+const loading = ref(false)
+const loginFromRef = ref(null)
+const store = useStore()
+const handlerLogin = () => {
+  loginFromRef.value.validate((vaild) => {
+    if (!vaild) return
+    loading.value = true
+    store
+      .dispatch('user/loginDisP', loginForm.value)
+      .then(() => {
+        loading.value = false
+      })
+      .catch((err) => {
+        console.log(err)
+        loading.value = false
+      })
+  })
+}
 </script>
 <style lang="scss" scoped>
 $bg: #2d3a4b;
@@ -119,7 +148,6 @@ $cursor: #fff;
       input {
         background: transparent;
         border: 0px;
-        -webkit-appearance: none;
         border-radius: 0px;
         padding: 12px 5px 12px 15px;
         color: $light_gray;
