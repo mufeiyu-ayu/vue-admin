@@ -14,7 +14,7 @@ router.beforeEach(async(to, from, next) => {
     } else {
       // 不存在用户信息。则需要获取用户信息
       if (!store.getters.hasUserInfo) {
-        await store.dispatch('user/getUserInfo')
+        await store.dispatch('user/getUserInfoDisp')
       }
       next()
     }
@@ -26,5 +26,4 @@ router.beforeEach(async(to, from, next) => {
       next('/login')
     }
   }
-  //
 })

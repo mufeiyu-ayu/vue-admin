@@ -1,8 +1,9 @@
 import { login, getUserInfo } from '@/api/svs'
 import md5 from 'md5'
-import { getItem, setItem } from '@/utils/storage'
+import { getItem, setItem, remvoeAllItem } from '@/utils/storage'
 import { TOKEN } from '@/constant'
 import router from '@/router'
+import { setTimeStamp } from '@/utils/auth'
 export default {
   namespaced: true,
   state: () => ({
@@ -31,6 +32,7 @@ export default {
         }).then(data => {
           router.push('/') // 跳转到layout页面
           this.commit('user/setToken', data.token)
+          setTimeStamp() // 记录当前登录时间
           resolve()
         }).catch(err => {
           reject(err)
@@ -38,10 +40,17 @@ export default {
       })
     },
     // 获取用户信息
-    async getUserInfo(context) {
+    async getUserInfoDisp(context) {
       const res = await getUserInfo()
       this.commit('user/setUserInfo', res)
       return res
+    },
+    // 用户主动退出登录
+    userOut() {
+      this.commit('user/setToken', '')
+      this.commit('user/setUsetInfo', {})
+      remvoeAllItem()
+      router.push('login')
     }
   }
 }
