@@ -24,3 +24,15 @@
     </el-menu-item>
   </el-menu>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { filterRouters, generateMenus } from '@/utils/menuRouteRules'
+const router = useRouter()
+const routes = computed(() => {
+  const filterRoutes = filterRouters(router.getRoutes())
+  return generateMenus(filterRoutes)
+})
+console.log(routes.value)
+</script>
