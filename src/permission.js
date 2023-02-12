@@ -6,7 +6,7 @@ import store from '@/store'
 const whiteList = ['/login']
 
 // 前置守卫
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   if (store.getters.token) {
     if (to.path === '/login') {
       // 1.用户已经登录,则不允许进入login登录页面 进入layout页面

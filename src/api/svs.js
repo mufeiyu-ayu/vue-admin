@@ -3,7 +3,7 @@
 import request from '@/utils/request'
 
 // 登录请求函数
-export const login = data => {
+export const login = (data) => {
   return request({
     url: '/sys/login',
     method: 'post',
