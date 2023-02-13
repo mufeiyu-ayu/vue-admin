@@ -39,9 +39,11 @@ export default {
     },
     // 用户主动退出登录
     userOut() {
+      // 清空token
       this.commit('user/setToken', '')
-      this.commit('user/setUsetInfo', {})
-      store.remvoeAllItem()
+      // 清空用户信息
+      this.commit('user/setUserInfo', {})
+      store.clear()
       router.push('login')
     }
   },
@@ -49,10 +51,9 @@ export default {
     setToken(state, token) {
       // 将token存储到本地以及vuex中
       state.token = token
-      // setItem(TOKEN, token)
       store.set(TOKEN, token)
     },
-    // 存数用户信息
+    // 存储用户信息
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo
     }

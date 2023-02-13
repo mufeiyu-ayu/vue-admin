@@ -1,5 +1,7 @@
 <template>
   <div class="navbar">
+    <Hamburger class="hamburger-container" />
+    <Breakcrumb />
     <div class="right-menu">
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
@@ -12,7 +14,7 @@
             <router-link to="/">
               <el-dropdown-item> 首页 </el-dropdown-item>
             </router-link>
-            <a target="_blank" href="">
+            <a target="_blank" href="#">
               <el-dropdown-item>课程主页</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="userOut">
@@ -28,7 +30,8 @@
 <script setup>
 import { computed } from 'vue'
 import store from '@/store'
-
+import Hamburger from '@/components/hamburger/index.vue'
+import Breakcrumb from '@/components/Breakcrumb/index.vue'
 // 渲染用户头像菜单
 const avatar = computed(() => {
   return store.getters.userInfo.avatar
@@ -47,7 +50,16 @@ const userOut = () => {
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-
+  .hamburger-container {
+    line-height: 46px;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+    transition: background 0.5s;
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
   .right-menu {
     display: flex;
     align-items: center;

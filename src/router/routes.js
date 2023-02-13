@@ -9,6 +9,7 @@ import layout from '@/layout/index.vue'
 否则：不显示在 menu 菜单中
  */
 const privateRoutes = [
+  // 用户路由
   {
     path: '/user', // 用户
     component: layout,
@@ -60,6 +61,7 @@ const privateRoutes = [
       }
     ]
   },
+  // aticle路由
   {
     path: '/article', // 文章
     component: layout,

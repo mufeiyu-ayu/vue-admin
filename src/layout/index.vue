@@ -1,5 +1,9 @@
+<!-- HACK layout结构页面 -->
 <template>
-  <div class="app-wrapper">
+  <div
+    class="app-wrapper"
+    :class="[$store.getters.sidebarOpened ? 'openSidebar' : 'hideSidebar']"
+  >
     <!-- 左侧menu -->
     <Sidebar
       id="guide-sidebar"
@@ -43,5 +47,9 @@ import variables from '@/styles/variables.scss'
   right: 0;
   z-index: 9;
   width: calc(100% - #{$sideBarWidth});
+  transition: width 0.3s;
+}
+.hideSidebar .fixed-header {
+  width: 100% -#{$hideSideBarWidth};
 }
 </style>
