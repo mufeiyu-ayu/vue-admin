@@ -25,6 +25,7 @@ const breakcrumbData = ref([])
 // 生成数组数据
 const breakcrumb = () => {
   // 当前路由的标准化路由记录
+
   breakcrumbData.value = route.matched.filter(
     (item) => item.meta && item.meta.title
   )
@@ -38,7 +39,6 @@ watch(
   { immediate: true }
 )
 const onLinkClick = (item) => {
-  console.log(item)
   router.push(item.path)
 }
 // 将来需要主题切换，所以hover的颜色我们设置为主色

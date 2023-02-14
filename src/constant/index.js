@@ -6,3 +6,4 @@ const TIME_STAMP = 'timeStamp'
 const TOKEN_TIMEOUT_VALUE = 2 * 3600 * 1000
 
 export { TOKEN, TOKEN_TIMEOUT_VALUE, TIME_STAMP }
+export const LANG = 'language'
