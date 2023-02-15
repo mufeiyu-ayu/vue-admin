@@ -6,16 +6,17 @@
       :key="item.path"
     >
       <span class="no-redirect" v-if="index === breakcrumbData.length - 1">{{
-        item.meta.title
+        generateTitle(item.meta.title)
       }}</span>
       <span class="redirect" v-else @click="onLinkClick(item)">{{
-        item.meta.title
+        generateTitle(item.meta.title)
       }}</span>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
 <script setup>
+import { generateTitle } from '@/utils/i18n'
 import { watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'

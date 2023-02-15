@@ -3,6 +3,9 @@
     <Hamburger class="hamburger-container" />
     <Breakcrumb />
     <div class="right-menu">
+      <HiderSearch />
+      <screenfull></screenfull>
+      <theme-select></theme-select>
       <LangSelect class="right-menu-item hover-effect" />
       <!-- 头像 -->
       <el-dropdown class="avatar-container" trigger="click">
@@ -13,13 +16,13 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item> {{ $t('msg.navBar.home') }} </el-dropdown-item>
             </router-link>
             <a target="_blank" href="#">
-              <el-dropdown-item>课程主页</el-dropdown-item>
+              <el-dropdown-item>{{ $t('msg.navBar.course') }}</el-dropdown-item>
             </a>
             <el-dropdown-item divided @click="userOut">
-              退出登录
+              {{ $t('msg.navBar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -34,6 +37,9 @@ import store from '@/store'
 import Hamburger from '@/components/hamburger/index.vue'
 import Breakcrumb from '@/components/Breakcrumb/index.vue'
 import LangSelect from '@/components/LanguageSelect/index.vue'
+import ThemeSelect from '@/components/ThemeSelect/index.vue'
+import screenfull from '@/components/Screenfull/index.vue'
+import HiderSearch from '@/components/HeaderSearch/index.vue'
 // 渲染用户头像菜单
 const avatar = computed(() => {
   return store.getters.userInfo.avatar

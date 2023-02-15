@@ -7,7 +7,8 @@
       ref="loginFromRef"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <lang-select class="lang-select"></lang-select>
       </div>
 
       <el-form-item prop="username">
@@ -46,15 +47,20 @@
         style="width: 100%; margin-bottom: 30px"
         :loading="loading"
         @click="handlerLogin"
-        >登录</el-button
+        >{{ $t('msg.login.loginBtn') }}</el-button
       >
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
 </template>
 
 <script setup>
+import LangSelect from '@/components/LanguageSelect/index.vue'
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useI18n } from 'vue-i18n'
+
+const i18n = useI18n()
 // 数据源
 const loginForm = ref({
   username: 'super-admin',
@@ -67,7 +73,7 @@ const loginRules = ref({
     {
       required: true,
       trigger: 'blur',
-      message: '用户名为必填项'
+      message: i18n.t('msg.login.usernameRule')
     }
   ],
   password: [
@@ -76,7 +82,7 @@ const loginRules = ref({
       trigger: 'blur',
       validator(rule, value, cb) {
         if (value.length < 6) {
-          cb(new Error('密码不能少于6位'))
+          cb(new Error(i18n.t('msg.login.passwordRule')))
         } else {
           cb()
         }
@@ -155,6 +161,11 @@ $cursor: #fff;
         caret-color: $cursor;
       }
     }
+    .tips {
+      font-size: 16px;
+      color: white;
+      line-height: 24px;
+    }
   }
 
   .svg-container {
@@ -184,6 +195,16 @@ $cursor: #fff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+  }
+  ::v-deep .lang-select {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    background-color: #fff;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
   }
 }
 </style>

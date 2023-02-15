@@ -1,3 +1,4 @@
+<!-- HACK 滑块开关组件 -->
 <template>
   <div class="hamburger-container" @click="toggleClick">
     <svg-icon class="hamburger" :icon="icon"></svg-icon>
