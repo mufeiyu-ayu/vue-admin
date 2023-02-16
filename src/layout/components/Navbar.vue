@@ -3,6 +3,7 @@
     <Hamburger class="hamburger-container" />
     <Breakcrumb />
     <div class="right-menu">
+      <Guide />
       <HiderSearch />
       <screenfull></screenfull>
       <theme-select></theme-select>
@@ -40,6 +41,7 @@ import LangSelect from '@/components/LanguageSelect/index.vue'
 import ThemeSelect from '@/components/ThemeSelect/index.vue'
 import screenfull from '@/components/Screenfull/index.vue'
 import HiderSearch from '@/components/HeaderSearch/index.vue'
+import Guide from '@/components/Guide/index.vue'
 // 渲染用户头像菜单
 const avatar = computed(() => {
   return store.getters.userInfo.avatar
