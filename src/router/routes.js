@@ -8,7 +8,7 @@ import layout from '@/layout/index.vue'
 否则：则以 el-menu-item（菜单项） 展示
 否则：不显示在 menu 菜单中
  */
-const privateRoutes = [
+export const privateRoutes = [
   // 用户路由
   {
     path: '/user', // 用户
@@ -47,6 +47,7 @@ const privateRoutes = [
         path: '/user/info/:id', // 个人用户
         name: 'userInfo',
         component: () => import('@/views/user-info/index'),
+        props: true,
         meta: {
           title: 'userInfo'
         }
@@ -104,11 +105,12 @@ const privateRoutes = [
     ]
   }
 ]
+console.log(privateRoutes)
 
 /**
  * 公开路由表
  */
-const publicRoutes = [
+export const publicRoutes = [
   {
     path: '/login',
     component: () => import('@/views/login/index')
@@ -140,5 +142,10 @@ const publicRoutes = [
       }
     ]
   }
+  // 必须在所有路由指定之后
+  // {
+  //   path: '/:catchAll().*',
+  //   redirect: '/404'
+  // }
 ]
-export default [...privateRoutes, ...publicRoutes]
+export default [...publicRoutes]

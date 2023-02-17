@@ -34,7 +34,6 @@ import { feature1 } from '@/api/user'
 const featureData = ref([])
 const getFeatureData = async () => {
   featureData.value = await feature1()
-  console.log(featureData.value)
 }
 getFeatureData()
 
