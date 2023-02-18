@@ -1,9 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import routes from './routes'
-
+import { publicRoutes } from './routes'
+import store from '@/store'
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes
+  routes: publicRoutes
 })
+export const resetRouter = () => {
+  if (store.getters.userInfo?.permission?.menus) {
+    const menus = store.getters.userInfo.permission.menus
+    menus.forEach((item) => {
+      router.removeRoute(item)
+    })
+  }
+}
 
 export default router

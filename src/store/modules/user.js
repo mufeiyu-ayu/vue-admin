@@ -1,9 +1,8 @@
 import { login, getUserInfo } from '@/api/svs'
 import md5 from 'md5'
 import store from 'storejs'
-
 import { TOKEN } from '@/constant'
-import router from '@/router'
+import router, { resetRouter } from '@/router'
 import { setTimeStamp } from '@/utils/auth'
 export default {
   namespaced: true,
@@ -39,6 +38,7 @@ export default {
     },
     // 用户主动退出登录
     userOut() {
+      resetRouter()
       // 清空token
       this.commit('user/setToken', '')
       // 清空用户信息
